@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8">
+      <title>Sign up</title>
+      <link rel="stylesheet" type="text/css" href="/style.css">
+   </head>
+   <body>
+      <th:block th:include="/header"></th:block>
+      <th:block th:include="/menu"></th:block>
+
+      <div class="page-title">Sign up</div>
+      
+      <div class="signup-container">
+         <h3>Enter your information</h3>
+         <br>
+         
+         <form method="POST" action="/admin/account">
+            <table>
+               <tr>
+                  <td>User Name *</td>
+                  <td><input name="username" /></td>
+               </tr>
+               <tr>
+                  <td>Password *</td>
+                  <td><input type="password" name="password" /></td>
+               </tr>
+               <tr>
+                  <td>Confirm Password *</td>
+                  <td><input type="password" name="confirmPassword" /></td>
+               </tr>
+               <tr>
+                  <td>User Role *</td>
+                  <td>
+                    <select name="role">
+                      <option value="ROLE_ADMIN">ADMIN</option>
+                      <option value="ROLE_USER">USER</option>
+                    </select>
+                  </td>
+               </tr>
+               <tr>
+                  <td>&nbsp;</td>
+                  <td>
+                      <input type="submit" value="Sign up" />
+                      <input type="reset"  value="Reset" />
+                  </td>
+               </tr>
+            </table>
+         </form>
+         
+         <span class="error-message" th:utext="${errorMessage}"></span>
+      </div>
+        
+   </body>
+</html>

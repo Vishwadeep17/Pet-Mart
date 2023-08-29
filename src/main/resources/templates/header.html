@@ -1,0 +1,21 @@
+<div class="header-container"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+   <div class="site-name">Online Pet Shop</div>
+  
+   <div class="header-bar">
+      <th:block sec:authorize="isAuthenticated()">
+         Hello,
+         <a th:utext="${#request.userPrincipal.name}">..</a>
+         &nbsp;|&nbsp;
+         <a th:href="@{/admin/logout}">Logout</a>
+      </th:block>
+      
+      <th:block sec:authorize="!isAuthenticated()">
+      		<a th:href="@{/admin/signup}">Sign up</a>&nbsp;
+         <a th:href="@{/admin/login}">Login</a>
+      </th:block>
+   </div>
+  
+</div>

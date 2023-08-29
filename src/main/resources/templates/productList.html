@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8">
+      <title>Pet's List</title>
+      <link rel="stylesheet" type="text/css" href="/style.css">
+   </head>
+   <body>
+      <th:block th:include="/header"></th:block>
+      <th:block th:include="/menu"></th:block>
+      
+      <div class="page-title">Pet's List</div>
+      
+       <div class="product-preview-container" th:each="prodInfo : ${listProducts.list}">
+         <ul>
+            <li><img class="product-image"
+               th:src="@{|/productImage?code=${prodInfo.code}|}" /></li>
+            <li>Code: <span th:utext="${prodInfo.code}"></span></li>
+            <li>Name: <span th:utext="${prodInfo.name}"></span></li>
+            <li>Price: <span th:utext="${#numbers.formatDecimal(prodInfo.price,3,2,'COMMA')}"></span></li>
+            <li>
+               <th:block sec:authorize="hasAuthority('ROLE_USER')">
+                  <a th:href="@{|/buyProduct?code=${prodInfo.code}|}">Buy Now</a>
+               </th:block>
+            </li>
+            <!-- For ADMIN edit Product -->
+            <th:block sec:authorize="hasAuthority('ROLE_ADMIN')">
+               <li>
+                 <a style="color:red;"
+                    th:href="@{|/admin/product?code=${prodInfo.code}|}">Edit Product</a>
+               </li>
+            </th:block>
+            <!-- For ADMIN delete Product -->
+			<th:block sec:authorize="hasAuthority('ROLE_ADMIN')">
+			    <li>
+			        <a style="color:red;"
+			           th:href="@{|/admin/product/delete?code=${prodInfo.code}|}">Delete Product</a>
+			    </li>
+			</th:block>
+            
+         </ul>
+      </div>
+      
+      <br/>
+      
+   </body>
+</html>
